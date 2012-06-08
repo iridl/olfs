@@ -159,10 +159,9 @@
     <property name="lib.dir" location="lib"/>
     <property name="resources.dir" location="resources"/>
     <property name="initialContent.dir" location="${resources.dir}/initialContent"/>
-    <property name="WebInfResources.dir" location="${resources.dir}/hyrax/WEB-INF"/>
+    <property name="WebInfResources.dir" location="${resources.dir}/WEB-INF"/>
     <property name="distributionResources.dir"  location="${resources.dir}/distribution"/>
 
-    <property name="hyraxResources.dir" location="${resources.dir}/hyrax"/>
     <property name="ncISO.dir" location="${resources.dir}/nciso"/>
     <property name="GatewayResources.dir" location="${resources.dir}/gateway"/>
     <property name="WebStartResources.dir" location="${resources.dir}/WebStart"/>
@@ -182,20 +181,22 @@
     <property name="build.lib" location="${build.dir}/lib"/>
     <property name="build.run" location="${build.dir}/run"/>
     <property name="build.src" location="${build.dir}/src"/>
-    <property name="build.webapp" location="${build.dir}/webapp"/>
 
 
 
     <!-- Libraries -->
-    <property name="junit.lib"       value="junit-4.4.jar"/>
-    <property name="jdom.lib"        value="jdom-1.1.1.jar"/>
-    <property name="urlRewrite.lib"      value="urlrewrite-3.2.0.jar"/>
+    <property name="junit.lib"   value="junit-4.4.jar"/>
+    <property name="jdom.lib"    value="jdom-1.1.1.jar"/>
+    <property name="servlet-api.lib" value="servlet-api-2.5.jar"/>
+    <property name="echo.lib"    value="echosoap.jar"/>
 
 
     <property name="slf4j.lib"            value="slf4j-api-1.6.1.jar"/>
     <property name="logback-core.lib"     value="logback-core-0.9.26.jar"/>
     <property name="logback-classic.lib"  value="logback-classic-0.9.26.jar"/>
 
+    <property name="metacat-client.lib"   value="metacat-client.jar"/>
+    <property name="nceas-utilities.lib"  value="nceas-utilities.jar"/>
     <property name="owlim.lib"            value="owlim-lite-4.3.jar"/>
     <property name="openrdf-sesame.lib"   value="openrdf-sesame-2.6.2-onejar.jar" />
 
@@ -215,8 +216,7 @@
     <property name="saxon-s9api.lib" value="saxon-9.1.0.5-s9api.jar"/>
     <property name="saxon.lib"       value="saxon-9.1.0.5.jar"/>
 
-    <property name="catalina.lib"         value="catalina-6.0.14.jar"/>
-    <property name="servlet-api.lib"      value="servlet-api-2.5.jar"/>
+    <property name="catalina.lib"       value="catalina-6.0.14.jar"/>
 
 
     <available classname="com.fortify.dev.ant.SourceanalyzerTask"
@@ -242,7 +242,10 @@
             <include name="${saxon-s9api.lib}"/>
             <include name="${saxon.lib}"/>
             <include name="${catalina.lib}"/>
-
+            <include name="${metacat-client.lib}"/>
+            <include name="${nceas-utilities.lib}"/>
+            <include name="${owlim.lib}"/>
+            <include name="${openrdf-sesame.lib}"/>
             <include name="${slf4j.lib}"/>
             <include name="${logback-core.lib}"/>
             <include name="${logback-classic.lib}"/>
@@ -398,14 +401,16 @@
             <src path="${src.dir}"/>
             <include name="opendap/**/*.java"/>
             <include name="hao/**/*.java"/>
+            <exclude name="opendap/metacat/old_code/**"/>
+            <exclude name="opendap/metacat/k_means/*.java"/>
 
         </javac>
 
     </target>
 
 
-    <target name="olfs-lib" depends="clean,compile">
 
+    <target name="olfs-lib" depends="clean,compile">
         <jar destfile="${build.lib}/olfs-${OLFS_VERSION}.jar">
             <fileset dir="${build.classes}">
                 <exclude name="hao/**/*.class"/>
@@ -426,7 +431,7 @@
 
 
     <target
-            name="javaDoc"
+            name="doc"
             depends="clean,PreProcessSourceCode,IsJavaDocUpToDate"
             description="Builds JavaDoc for the Serve4 software packages, if missing or out of date."
             unless="JavaDocIsUpToDate"
@@ -445,11 +450,26 @@
 
         </javadoc>
 
+        <!-- Turning on filtering here allows us to inject the version number
+           - into the XSLT code that is hanging off of the docs tree.
+           -
+           -->
+        <copy todir="${build.doc}" filtering="false" >
+            <fileset dir="${doc.dir}">
+                <exclude name="javadoc/**"/><!-- Exclude the javadoc directory in the ${doc.dir} dir -->
+                <exclude name="_notes/**"/> <!-- Exclude the _notes directory in the ${doc.dir} dir -->
+                <exclude name="xsl/**"/> <!-- Exclude the _notes directory in the ${doc.dir} dir -->
+            </fileset>
+        </copy>
+        <copy todir="${build.doc}/xsl" filtering="true" >
+            <fileset dir="${doc.dir}/xsl" />
+        </copy>
     </target>
 
 
-    <target name="doc-dist"
-            depends="clean,javaDoc"
+    <target
+            name="doc-dist"
+            depends="clean,doc"
             description="Builds documentation distribution"
             >
 
@@ -461,7 +481,9 @@
 
     </target>
 
-    <target name="src-dist"
+
+    <target
+            name="src-dist"
             depends="clean,PreProcessSourceCode"
             description="Builds source distribution"
             >
@@ -511,7 +533,8 @@
 
     </target>
 
-    <target name="server-dist"
+    <target
+            name="server-dist"
             depends="server"
             description="Packages the war file into tar file with a release related name.">
 
@@ -533,14 +556,18 @@
 
     </target>
 
-    <target name="DISTRO"
+
+    <target
+            name="DISTRO"
             depends="clean,src-dist,doc-dist,server-dist,check"
             description="Builds complete distribution"
             >
 
     </target>
 
-    <target name="IsJavaDocUpToDate"
+
+    <target
+            name="IsJavaDocUpToDate"
             description="Checks to see if the JavaDoc is out of date."
             >
         <uptodate property="JavaDocIsUpToDate"
@@ -552,7 +579,9 @@
 
     </target>
 
-    <target name="BESclient"
+
+    <target
+            name="BESclient"
             depends="olfs-lib"
             description="Build and package the back end client."
             >
@@ -569,6 +598,9 @@
 
 
     </target>
+
+
+
 
     <target name="hexEncoderApp"
         depends="clean,compile"
@@ -597,6 +629,10 @@
 
     </target>
 
+
+
+
+
     <target name="NcmlDispatchHandler"
         depends="clean,compile"
         description="Builds jar file for the NcML Dispatch Handler">
@@ -609,6 +645,7 @@
         </jar>
 
     </target>
+
 
     <target name="GatewayDispatchHandler"
         depends="clean,compile"
@@ -625,6 +662,8 @@
         </jar>
 
     </target>
+
+
 
     <target name="validatorApp"
         depends="clean,compile"
@@ -651,6 +690,9 @@
         </jar>
 
     </target>
+
+
+
 
     <target name="XSLTransformer"
         depends="clean,compile"
@@ -682,36 +724,18 @@
 
     <target
             name="server"
-            depends="clean,compile"
+            depends="olfs-lib,doc"
             description="Performs a clean build of the core software and assembles the WAR file."
             >
-
-
-
-        <echo level="info" message="Building Hyrax server war file."/>
-        <echo level="info" message="WebInfResources.dir: ${WebInfResources.dir}"/>
-        <echo level="info" message="build.dist: ${build.dist}"/>
-
-
-        <mkdir dir="${build.dir}/webapp" />
-
-
-        <!-- Turning on filtering here allows us to inject the version number into the XSLT code -->
-        <copy todir="${build.webapp}/xsl" filtering="true" >
-            <fileset dir="${hyraxResources.dir}/xsl"/>
-        </copy>
 
 
         <war destfile="${build.dist}/opendap.war"
              webxml="${WebInfResources.dir}/web.xml"
                 >
-            <zipfileset dir="${build.dir}/webapp" prefix="" />
 
             <lib dir="${lib.dir}">
                 <include name="${jdom.lib}"/>
                 <include name="${junit.lib}"/>
-                <include name="${urlRewrite.lib}"/>
-
                 <include name="${commons-lang.lib}"/>
                 <include name="${commons-cli.lib}"/>
                 <include name="${commons-httpclient.lib}"/>
@@ -730,19 +754,39 @@
             </lib>
             <classes dir="${build.classes}"/>
 
-            <zipfileset dir="${doc.dir}" prefix="docs" >
+            <zipfileset dir="${build.doc}" prefix="docs" >
                 <exclude name="src.distribution.readme"/>
+                <exclude name="_notes"/>
             </zipfileset>
 
-
-            <zipfileset dir="${hyraxResources.dir}/admin" prefix="admin" />
-            <zipfileset dir="${hyraxResources.dir}/error" prefix="error" />
-            <zipfileset dir="${hyraxResources.dir}/jsp"   prefix="jsp" />
 
             <zipfileset dir="${WebStartResources.dir}" prefix="WebStart" />
             <zipfileset dir="${GatewayResources.dir}" prefix="gateway" />
             <zipfileset dir="${ncISO.dir}" prefix="nciso" />
 
+
+            <!--
+            <zipfileset dir="${THREDDSResources.dir}/views" prefix="views"/>
+            -->
+
+
+            <zipfileset dir="${build.doc}/javadoc" prefix="javadocs/olfs"/>
+
+
+            <zipfileset dir="${lib.dir}" prefix="olfs-libraries">
+                <include name="${jdom.lib}"/>
+                <include name="${junit.lib}"/>
+                <include name="${commons-cli.lib}"/>
+                <include name="${commons-httpclient.lib}"/>
+                <include name="${commons-logging.lib}"/>
+                <include name="${commons-codec.lib}"/>
+                <include name="${xercesImpl.lib}"/>
+                <include name="${xercesXmlApis.lib}"/>
+                <include name="${saxon-jdom.lib}"/>
+                <include name="${saxon-s9api.lib}"/>
+                <include name="${saxon.lib}"/>
+
+            </zipfileset>
 
             <zipfileset dir="${initialContent.dir}" prefix="initialContent">
                 <include name="**/*"/>
@@ -751,7 +795,6 @@
             <webinf dir="${WebInfResources.dir}">
                 <include name="logback-test.xml"/>
                 <include name="logback.xml"/>
-                <include name="urlrewrite.xml"/>
             </webinf>
 
 
@@ -760,6 +803,100 @@
         <delete file="${build.dist}/index.html"/>
 
     </target>
+
+    <target
+            name="JspServer"
+            depends="clean,compile,doc"
+            description="Performs a clean build of the core software and assembles the WAR file."
+            >
+
+
+        <echo level="info" message="Building jsp server war file."/>
+        <echo level="info" message="jspServerWebInf.dir: ${jspServerWebInf.dir}"/>
+        <echo level="info" message="build.dist: ${build.dist}"/>
+
+
+        <mkdir dir="${build.dir}/webapp" />
+        <copy file="${build.doc}/index.jsp" tofile="${build.dir}/webapp/index.jsp" />
+
+        <war destfile="${build.dist}/opendap.war" webxml="${jspServerWebInf.dir}/web.xml" >
+
+
+            <zipfileset dir="${build.dir}/webapp" prefix="" />
+
+
+
+            <lib dir="${lib.dir}">
+                <include name="${jdom.lib}"/>
+                <include name="${junit.lib}"/>
+                <include name="${commons-lang.lib}"/>
+                <include name="${commons-cli.lib}"/>
+                <include name="${commons-httpclient.lib}"/>
+                <include name="${commons-logging.lib}"/>
+                <include name="${commons-codec.lib}"/>
+                <include name="${xercesImpl.lib}"/>
+                <include name="${xercesXmlApis.lib}"/>
+                <include name="${saxon-jdom.lib}"/>
+                <include name="${saxon-s9api.lib}"/>
+                <include name="${saxon.lib}"/>
+
+                <include name="${slf4j.lib}"/>
+                <include name="${logback-core.lib}"/>
+                <include name="${logback-classic.lib}"/>
+
+            </lib>
+            <classes dir="${build.classes}"/>
+
+            <zipfileset dir="${build.doc}" prefix="docs" >
+                <exclude name="src.distribution.readme"/>
+                <exclude name="_notes"/>
+            </zipfileset>
+
+
+            <zipfileset dir="${WebStartResources.dir}" prefix="WebStart" />
+            <zipfileset dir="${GatewayResources.dir}" prefix="gateway" />
+            <zipfileset dir="${ncISO.dir}" prefix="nciso" />
+
+
+            <!--
+            <zipfileset dir="${THREDDSResources.dir}/views" prefix="views"/>
+            -->
+
+
+            <!-- <zipfileset dir="${build.doc}/javadoc" prefix="javadocs/olfs"/>  -->
+
+            <!--
+            <zipfileset dir="${lib.dir}" prefix="olfs-libraries">
+                <include name="${jdom.lib}"/>
+                <include name="${junit.lib}"/>
+                <include name="${commons-cli.lib}"/>
+                <include name="${commons-httpclient.lib}"/>
+                <include name="${commons-logging.lib}"/>
+                <include name="${commons-codec.lib}"/>
+                <include name="${xercesImpl.lib}"/>
+                <include name="${xercesXmlApis.lib}"/>
+                <include name="${saxon-jdom.lib}"/>
+                <include name="${saxon-s9api.lib}"/>
+                <include name="${saxon.lib}"/>
+
+            </zipfileset>
+              -->
+
+            <zipfileset dir="${initialContent.dir}" prefix="initialContent">
+                <include name="**/*"/>
+            </zipfileset>
+
+            <webinf dir="${jspServerWebInf.dir}">
+                <include name="logback-test.xml"/>
+                <include name="logback.xml"/>
+            </webinf>
+
+        </war>
+
+        <delete file="${build.dist}/index.html"/>
+
+    </target>
+
 
 
     <target name="fortify" if="fortify.present">
