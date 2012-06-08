@@ -48,7 +48,7 @@
          tag information from CVS.
     -->
     <property name="HYRAX_VERSION" value="Not.A.Release"/>
-    <property name="OLFS_VERSION"  value="Not.A.Release"/>
+    <property name="OLFS_VERSION"  value="1.9.0"/>
 
 
     <!-- Compiler Settings -->
@@ -374,6 +374,13 @@
     </target>
 
 
+
+    <target name="opendap-olfs-experiments" depends="olfs-experiments">
+        <jar destfile="${build.lib}/opendap-olfs-experiments.jar">
+            <fileset dir="${build.classes}/opendap">
+            </fileset>
+        </jar>
+    </target>
 
 
 
