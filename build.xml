@@ -377,7 +377,7 @@
 
     <target name="opendap-olfs-experiments" depends="olfs-experiments">
         <jar destfile="${build.lib}/opendap-olfs-experiments.jar">
-            <fileset dir="${build.classes}/opendap">
+            <fileset dir="${build.classes}">
             </fileset>
         </jar>
     </target>
