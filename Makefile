@@ -9,7 +9,7 @@ build:
 	$(ANT) opendap-olfs-experiments
 
 clean distclean:
-	$(RM) -r build
+	$(ANT) clean
 
 install: build
 	$(INSTALL) -d $(PREFIX)/lib
