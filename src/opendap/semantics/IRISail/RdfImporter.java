@@ -65,6 +65,8 @@ import java.util.*;
  * The method <code>findNeededRDFDocuments</code> queries the repository and
  * passes those RDF docuemts to <code>addNeededDocuments</code> which in turn
  * adds them into the repository.
+ * Commented out the lines that mark the server as down when one URL can not
+ * be retrieved. 20130515
  */
 public class RdfImporter {
 
@@ -485,13 +487,13 @@ public class RdfImporter {
                             + documentURL + " WILL NOT IMPORT!");
                     urlsToBeIgnored.add(documentURL);
                     URL inUrlHost = new URL(documentURL);
-                    serversDown.add(inUrlHost.getHost());
+                    // serversDown.add(inUrlHost.getHost());
                 } else if (rsCode != 200) {
                     log.error("importRdfDocuments(): Error!  HTTP status code "
                             + rsCode + " Skipping documentURL " + documentURL);
                     urlsToBeIgnored.add(documentURL);
                     URL inUrlHost = new URL(documentURL);
-                    serversDown.add(inUrlHost.getHost());
+                    // serversDown.add(inUrlHost.getHost());
                 } else {
 
                     log.debug("importRdfDocuments(): Import URL appears valid ( "
