@@ -1375,7 +1375,6 @@ public class RepositoryOps {
     public static boolean updateExternalInference(Repository repository, Vector<String> doNotImportTheseUrls, 
             String resourceDir, String catalogCacheDirectory, String loadfromtrig)
             throws InterruptedException, RepositoryException, RDFParseException, IOException {
-        boolean firstPass = true;
         boolean repositoryHasBeenChanged = false;
         boolean modelChanged = false;
         
@@ -1391,23 +1390,22 @@ public class RepositoryOps {
 
         ProcessController.checkState();
 
-        repositoryHasBeenChanged = modelChanged;
+        repositoryHasBeenChanged = false;
         log.info("updateExternalInference: Running construct rules ...");
-        while (modelChanged || firstPass) {
+        while (modelChanged) {
 
-            firstPass = false;
             String filename = catalogCacheDirectory + "owlimMaxRepository.trig";
             RepositoryOps.dumpRepository(repository, filename);
             filename = catalogCacheDirectory + "owlimMaxRepository.nt";
             RepositoryOps.dumpRepository(repository, filename);
             
-            repositoryHasBeenChanged =  constructRuleEvaluator.runConstruct(repository) || repositoryHasBeenChanged;
+            modelChanged =  constructRuleEvaluator.runConstruct(repository);
 
             ProcessController.checkState();
 
             log.debug(showContexts(repository));
 
-            modelChanged = rdfImporter.importReferencedRdfDocs(repository, doNotImportTheseUrls);
+            modelChanged = rdfImporter.importReferencedRdfDocs(repository, doNotImportTheseUrls) || modelChanged;
             
             repositoryHasBeenChanged = repositoryHasBeenChanged || modelChanged;
 

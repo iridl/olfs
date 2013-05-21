@@ -127,7 +127,7 @@ public class ConstructRuleEvaluator {
              ValueFactory creatValue = repository.getValueFactory(); //moved from line 159
              Hashtable<String, Double> ruleTimeTotal = new Hashtable<String, Double>();
 
-             while (modelChanged && runNbr < runNbrMax ) {
+	     //             while (modelChanged && runNbr < runNbrMax ) {
 
                  runNbr++;
                  modelChanged = false;
@@ -283,12 +283,12 @@ public class ConstructRuleEvaluator {
                  ProcessController.checkState();
 
                  findConstruct(repository);
-             } // while (modelChanged
-             for (String qstring : this.constructQuery) {
+
+		 //for (String qstring : this.constructQuery) {
                  
-                 DecimalFormat df = new DecimalFormat("#.#####");
-             log.debug("rule " +this.constructContext.get(qstring) + " takes " + df.format(ruleTimeTotal.get(qstring)) + " seconds");
-             }
+		 //    DecimalFormat df = new DecimalFormat("#.#####");
+		 // log.debug("rule " +this.constructContext.get(qstring) + " takes " + df.format(ruleTimeTotal.get(qstring)) + " seconds");
+		 //}
              //the construct rules run too many times
              if (runNbr >= runNbrMax) {
                  log.warn("runConstruct(): The construct rules have executed to the maximum number times allowed!");
