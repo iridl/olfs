@@ -157,9 +157,7 @@
 	<property name="commons-logging.lib" value="apache-commons-logging-1.1.1.jar" />
 	<property name="commons-codec.lib" value="apache-commons-codec-1.3.jar" />
 
-	<property name="saxon-jdom.lib" value="saxon-9.1.0.5-jdom.jar" />
-	<property name="saxon-s9api.lib" value="saxon-9.1.0.5-s9api.jar" />
-	<property name="saxon.lib" value="saxon-9.1.0.5.jar" />
+	<property name="saxon9he.lib" value="saxon9he.jar" />
 
 	<property name="catalina.lib" value="catalina-6.0.14.jar" />
 
@@ -185,9 +183,7 @@
 			<include name="${commons-cli.lib}" />
 			<include name="${commons-httpclient.lib}" />
 			
-			<include name="${saxon-jdom.lib}" />
-			<include name="${saxon-s9api.lib}" />
-			<include name="${saxon.lib}" />
+			<include name="${saxon9he.lib}" />
 
 			<!-- Used for metacat -->
 			<include name="${metacat-client.lib}" />
@@ -221,9 +217,7 @@
 				<include name="${commons-cli.lib}" />
 				<include name="${commons-httpclient.lib}" />
 
-				<include name="${saxon-jdom.lib}" />
-				<include name="${saxon-s9api.lib}" />
-				<include name="${saxon.lib}" />
+				<include name="${saxon9he.lib}" />
 
 				<include name="${postgres-jdbc.lib}" />
 			</fileset>
@@ -250,9 +244,7 @@
                 <include name="${commons-cli.lib}" />
                 <include name="${commons-httpclient.lib}" />
 
-                <include name="${saxon-jdom.lib}" />
-                <include name="${saxon-s9api.lib}" />
-                <include name="${saxon.lib}" />
+                <include name="${saxon9he.lib}" />
 
                 <include name="${postgres-jdbc.lib}" />
 
@@ -353,9 +345,7 @@
 		<copy file="${lib.dir}/${jdom.lib}" todir="${build.lib}/" />
 		<copy file="${lib.dir}/${commons-cli.lib}" todir="${build.lib}/" />
 		<copy file="${lib.dir}/${commons-httpclient.lib}" todir="${build.lib}/" />
-		<copy file="${lib.dir}/${saxon-jdom.lib}" todir="${build.lib}/" />
-		<copy file="${lib.dir}/${saxon-s9api.lib}" todir="${build.lib}/" />
-		<copy file="${lib.dir}/${saxon.lib}" todir="${build.lib}/" />
+		<copy file="${lib.dir}/${saxon9he.lib}" todir="${build.lib}/" />
 
 		<copy file="${lib.dir}/${postgres-jdbc.lib}" todir="${build.lib}/" />
 
@@ -403,9 +393,7 @@
 		<copy file="${lib.dir}/${jdom.lib}" todir="${build.lib}/" />
 		<copy file="${lib.dir}/${commons-cli.lib}" todir="${build.lib}/" />
 		<copy file="${lib.dir}/${commons-httpclient.lib}" todir="${build.lib}/" />
-		<copy file="${lib.dir}/${saxon-jdom.lib}" todir="${build.lib}/" />
-		<copy file="${lib.dir}/${saxon-s9api.lib}" todir="${build.lib}/" />
-		<copy file="${lib.dir}/${saxon.lib}" todir="${build.lib}/" />
+		<copy file="${lib.dir}/${saxon9he.lib}" todir="${build.lib}/" />
 
 		<copy file="${lib.dir}/${postgres-jdbc.lib}" todir="${build.lib}/" />
 
@@ -435,9 +423,7 @@
 		<copy file="${lib.dir}/${jdom.lib}" todir="${build.lib}/" />
 		<copy file="${lib.dir}/${commons-cli.lib}" todir="${build.lib}/" />
 		<copy file="${lib.dir}/${commons-httpclient.lib}" todir="${build.lib}/" />
-		<copy file="${lib.dir}/${saxon-jdom.lib}" todir="${build.lib}/" />
-		<copy file="${lib.dir}/${saxon-s9api.lib}" todir="${build.lib}/" />
-		<copy file="${lib.dir}/${saxon.lib}" todir="${build.lib}/" />
+		<copy file="${lib.dir}/${saxon9he.lib}" todir="${build.lib}/" />
 
 		<copy file="${lib.dir}/${postgres-jdbc.lib}" todir="${build.lib}/" />
 
@@ -503,9 +489,7 @@
         <copy file="${lib.dir}/${commons-cli.lib}" todir="${build.lib}/" />
         <copy file="${lib.dir}/${commons-httpclient.lib}" todir="${build.lib}/" />
 
-        <copy file="${lib.dir}/${saxon-jdom.lib}" todir="${build.lib}/" />
-        <copy file="${lib.dir}/${saxon-s9api.lib}" todir="${build.lib}/" />
-        <copy file="${lib.dir}/${saxon.lib}" todir="${build.lib}/" />
+        <copy file="${lib.dir}/${saxon9he.lib}" todir="${build.lib}/" />
 
     	<copy file="${lib.dir}/${metacat-client.lib}" todir="${build.lib}/" />
     	<copy file="${lib.dir}/${nceas-utilities.lib}" todir="${build.lib}/" />
@@ -546,9 +530,7 @@
         <copy file="${lib.dir}/${commons-cli.lib}" todir="${build.lib}/" />
         <copy file="${lib.dir}/${commons-httpclient.lib}" todir="${build.lib}/" />
 
-        <copy file="${lib.dir}/${saxon-jdom.lib}" todir="${build.lib}/" />
-        <copy file="${lib.dir}/${saxon-s9api.lib}" todir="${build.lib}/" />
-        <copy file="${lib.dir}/${saxon.lib}" todir="${build.lib}/" />
+        <copy file="${lib.dir}/${saxon9he.lib}" todir="${build.lib}/" />
 
         <copy file="${lib.dir}/${postgres-jdbc.lib}" todir="${build.lib}/" />
 

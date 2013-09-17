@@ -212,9 +212,7 @@
     <property name="xercesXmlApis.lib" value="xalan-2.7.1-xml-apis.jar"/>
     <property name="xsltc.lib"         value="xalan-2.7.1-xsltc.jar"/>
     
-    <property name="saxon-jdom.lib"  value="saxon-9.1.0.5-jdom.jar"/>
-    <property name="saxon-s9api.lib" value="saxon-9.1.0.5-s9api.jar"/>
-    <property name="saxon.lib"       value="saxon-9.1.0.5.jar"/>
+    <property name="saxon9he.lib"  value="saxon9he.jar"/>
 
     <property name="catalina.lib"       value="catalina-6.0.14.jar"/>
 
@@ -238,9 +236,7 @@
             <include name="${commons-logging.lib}"/>
             <include name="${commons-codec.lib}"/>
             <include name="${commons-lang.lib}"/>
-            <include name="${saxon-jdom.lib}"/>
-            <include name="${saxon-s9api.lib}"/>
-            <include name="${saxon.lib}"/>
+            <include name="${saxon9he.lib}"/>
             <include name="${catalina.lib}"/>
             <include name="${metacat-client.lib}"/>
             <include name="${nceas-utilities.lib}"/>
@@ -682,11 +678,6 @@
         <copy file="${lib.dir}/${commons-codec.lib}" tofile="${build.dist}/${commons-codec.lib}"/>
         <copy file="${lib.dir}/${xercesImpl.lib}" tofile="${build.dist}/${xercesImpl.lib}"/>
         <copy file="${lib.dir}/${xercesXmlApis.lib}" tofile="${build.dist}/${xercesXmlApis.lib}"/>
-        <!--
-        <copy file="${lib.dir}/${saxon-jdom.lib}" tofile="${build.dist}/${saxon-jdom.lib}"/>
-        <copy file="${lib.dir}/${saxon-xml-apis.lib}" tofile="${build.dist}/${saxon-xml-apis.lib}"/>
-        <copy file="${lib.dir}/${saxon.lib}" tofile="${build.dist}/${saxon.lib}"/>
-        -->
         <copy file="${lib.dir}/${jdom.lib}" tofile="${build.dist}/${jdom.lib}"/>
 
         <jar destfile="${build.dist}/validator.jar"
@@ -711,11 +702,6 @@
         <copy file="${lib.dir}/${commons-codec.lib}" tofile="${build.dist}/${commons-codec.lib}"/>
         <copy file="${lib.dir}/${xercesImpl.lib}" tofile="${build.dist}/${xercesImpl.lib}"/>
         <copy file="${lib.dir}/${xercesXmlApis.lib}" tofile="${build.dist}/${xercesXmlApis.lib}"/>
-        <!--
-        <copy file="${lib.dir}/${saxon-jdom.lib}" tofile="${build.dist}/${saxon-jdom.lib}"/>
-        <copy file="${lib.dir}/${saxon-xml-apis.lib}" tofile="${build.dist}/${saxon-xml-apis.lib}"/>
-        <copy file="${lib.dir}/${saxon.lib}" tofile="${build.dist}/${saxon.lib}"/>
-        -->
         <copy file="${lib.dir}/${jdom.lib}" tofile="${build.dist}/${jdom.lib}"/>
 
         <jar destfile="${build.dist}/xslt.jar"
@@ -750,9 +736,7 @@
                 <include name="${commons-codec.lib}"/>
                 <include name="${xercesImpl.lib}"/>
                 <include name="${xercesXmlApis.lib}"/>
-                <include name="${saxon-jdom.lib}"/>
-                <include name="${saxon-s9api.lib}"/>
-                <include name="${saxon.lib}"/>
+                <include name="${saxon9he.lib}"/>
 
                 <include name="${slf4j.lib}"/>
                 <include name="${logback-core.lib}"/>
@@ -789,9 +773,7 @@
                 <include name="${commons-codec.lib}"/>
                 <include name="${xercesImpl.lib}"/>
                 <include name="${xercesXmlApis.lib}"/>
-                <include name="${saxon-jdom.lib}"/>
-                <include name="${saxon-s9api.lib}"/>
-                <include name="${saxon.lib}"/>
+                <include name="${saxon9he.lib}"/>
 
             </zipfileset>
 
@@ -843,9 +825,7 @@
                 <include name="${commons-codec.lib}"/>
                 <include name="${xercesImpl.lib}"/>
                 <include name="${xercesXmlApis.lib}"/>
-                <include name="${saxon-jdom.lib}"/>
-                <include name="${saxon-s9api.lib}"/>
-                <include name="${saxon.lib}"/>
+                <include name="${saxon9he.lib}"/>
 
                 <include name="${slf4j.lib}"/>
                 <include name="${logback-core.lib}"/>
@@ -882,9 +862,7 @@
                 <include name="${commons-codec.lib}"/>
                 <include name="${xercesImpl.lib}"/>
                 <include name="${xercesXmlApis.lib}"/>
-                <include name="${saxon-jdom.lib}"/>
-                <include name="${saxon-s9api.lib}"/>
-                <include name="${saxon.lib}"/>
+                <include name="${saxon9he.lib}"/>
 
             </zipfileset>
               -->
