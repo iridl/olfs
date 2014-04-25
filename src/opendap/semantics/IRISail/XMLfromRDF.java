@@ -49,7 +49,7 @@ import org.openrdf.model.Value;
 import org.openrdf.model.ValueFactory;
 import org.openrdf.model.impl.URIImpl;
 import org.openrdf.model.impl.LiteralImpl;
-import org.openrdf.model.util.LiteralUtil;
+//import org.openrdf.model.util.LiteralUtil;
 
 import org.openrdf.query.algebra.IsLiteral;
 import org.openrdf.query.BindingSet;

@@ -184,9 +184,11 @@
     <property name="logback-core.lib"     value="logback-core-0.9.26.jar"/>
     <property name="logback-classic.lib"  value="logback-classic-0.9.26.jar"/>
 
-    <property name="owlim.lib"            value="owlim-lite-4.3.jar"/>
-    <property name="openrdf-sesame.lib"   value="openrdf-sesame-2.6.2-onejar.jar" />
+    <property name="owlim.lib"            value="owlim-lite-5.4.jar"/>
+    <property name="jsonld-java.lib"      value="jsonld-java-0.3.jar"/>
+    <property name="openrdf-sesame.lib"   value="openrdf-sesame-2.7.7-onejar.jar" />
 
+    <property name="commons-io.lib"        value="commons-io-2.4.jar"/>
     <property name="commons-cli.lib"        value="apache-commons-cli-1.2.jar"/>
     <property name="commons-httpclient.lib" value="apache-commons-httpclient-3.1.jar"/>
     <property name="commons-logging.lib"    value="apache-commons-logging-1.1.1.jar"/>
@@ -217,6 +219,7 @@
             <include name="${servlet-api.lib}"/>
             <include name="${jdom.lib}"/>
             <include name="${junit.lib}"/>
+            <include name="${commons-io.lib}"/>
             <include name="${commons-cli.lib}"/>
             <include name="${commons-httpclient.lib}"/>
             <include name="${commons-logging.lib}"/>
@@ -228,7 +231,8 @@
             <include name="${logback-core.lib}"/>
             <include name="${logback-classic.lib}"/>
 
-	        <include name="${owlim.lib}"/>
+	    <include name="${owlim.lib}"/>
+	    <include name="${jsonld-java.lib}"/>
             <include name="${openrdf-sesame.lib}"/>
 
         </fileset>
@@ -377,6 +381,7 @@
             <lib dir="${lib.dir}">
                 <include name="${jdom.lib}"/>
                 <include name="${junit.lib}"/>
+                <include name="${commons-io.lib}"/>
                 <include name="${commons-cli.lib}"/>
                 <include name="${commons-httpclient.lib}"/>
                 <include name="${commons-logging.lib}"/>
@@ -389,7 +394,8 @@
                 <include name="${logback-core.lib}"/>
                 <include name="${logback-classic.lib}"/>
 
-	            <include name="${owlim.lib}"/>
+	        <include name="${owlim.lib}"/>
+	        <include name="${jsonld-java.lib}"/>
                 <include name="${openrdf-sesame.lib}"/>
 
             </lib>

@@ -55,10 +55,10 @@ public class IRISailRepository extends SailRepository {
     }
 
 
-    public void initialize() throws org.openrdf.repository.RepositoryException {
-        super.initialize();
-        isRepositoryDown.set(false);
-    }
+    //    public void initialize() throws org.openrdf.repository.RepositoryException {
+    //        super.initialize();
+    //        isRepositoryDown.set(false);
+    //    }
 
     public Boolean isRepositoryDown() {
         return isRepositoryDown.get();
@@ -69,19 +69,19 @@ public class IRISailRepository extends SailRepository {
      *
      * @throws RepositoryException
      */
-    @Override
-    public void shutDown() throws RepositoryException {
+    //    @Override
+    //    public void shutDown() throws RepositoryException {
 
-        log.debug("shutDown(): Shutting down Repository...");
-        if (!isRepositoryDown.get()) {
-            super.shutDown();
-            isRepositoryDown.set(false);
-            log.info("shutDown(): Semantic Repository Has Been Shutdown.");
-        } else {
-            log.info("shutDown(): Semantic Repository was already down.");
-        }
-        log.debug("shutDown(): Repository shutdown complete.");
-    }
+    //        log.debug("shutDown(): Shutting down Repository...");
+    //        if (!isRepositoryDown.get()) {
+    //            super.shutDown();
+    //            isRepositoryDown.set(false);
+    //            log.info("shutDown(): Semantic Repository Has Been Shutdown.");
+    //        } else {
+    //            log.info("shutDown(): Semantic Repository was already down.");
+    //        }
+    //        log.debug("shutDown(): Repository shutdown complete.");
+    //    }
 
 
 

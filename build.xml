@@ -197,9 +197,11 @@
 
     <property name="metacat-client.lib"   value="metacat-client.jar"/>
     <property name="nceas-utilities.lib"  value="nceas-utilities.jar"/>
-    <property name="owlim.lib"            value="owlim-lite-4.3.jar"/>
-    <property name="openrdf-sesame.lib"   value="openrdf-sesame-2.6.2-onejar.jar" />
+    <property name="owlim.lib"            value="owlim-lite-5.4.jar"/>
+    <property name="jsonld-java-sesame.lib"      value="jsonld-java-sesame-0.3.jar"/>
+    <property name="openrdf-sesame.lib"   value="openrdf-sesame-2.7.7-onejar.jar" />
 
+    <property name="commons-io.lib"        value="commons-io-2.4.jar"/>
     <property name="commons-cli.lib"        value="apache-commons-cli-1.2.jar"/>
     <property name="commons-httpclient.lib" value="apache-commons-httpclient-3.1.jar"/>
     <property name="commons-logging.lib"    value="apache-commons-logging-1.1.1.jar"/>
@@ -231,6 +233,7 @@
             <include name="${servlet-api.lib}"/>
             <include name="${jdom.lib}"/>
             <include name="${junit.lib}"/>
+            <include name="${commons-io.lib}"/>
             <include name="${commons-cli.lib}"/>
             <include name="${commons-httpclient.lib}"/>
             <include name="${commons-logging.lib}"/>
@@ -241,6 +244,7 @@
             <include name="${metacat-client.lib}"/>
             <include name="${nceas-utilities.lib}"/>
             <include name="${owlim.lib}"/>
+            <include name="${jsonld-java-sesame.lib}"/>
             <include name="${openrdf-sesame.lib}"/>
             <include name="${slf4j.lib}"/>
             <include name="${logback-core.lib}"/>

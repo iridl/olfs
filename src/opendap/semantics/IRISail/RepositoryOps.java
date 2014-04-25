@@ -26,6 +26,8 @@
 /////////////////////////////////////////////////////////////////////////////
 package opendap.semantics.IRISail;
 
+import org.openrdf.rio.*;
+
 import opendap.coreServlet.Scrub;
 import org.openrdf.model.*;
 import org.openrdf.model.impl.URIImpl;
@@ -44,6 +46,13 @@ import org.openrdf.rio.trix.TriXWriter;
 import org.openrdf.sail.memory.MemoryStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import org.openrdf.rio.RDFWriter;
+import org.openrdf.rio.helpers.BasicWriterSettings;
+import org.openrdf.rio.helpers.JSONLDMode;
+import org.openrdf.rio.helpers.JSONLDSettings;
+import org.openrdf.rio.helpers.RDFWriterBase;
+import org.openrdf.rio.helpers.StatementCollector;
 
 import com.ontotext.trree.owlim_ext.SailImpl;
 
@@ -99,11 +108,12 @@ public class RepositoryOps {
 
         try {
             con = repo.getConnection();
-            con.setAutoCommit(false);
+	    // deprecated            con.setAutoCommit(false);
+            con.begin();
             
             long beforeDrop = new Date().getTime();
             
-            log.debug("dropStartingPointsAndContexts(): AutoCommit = " + con.isAutoCommit());
+            // log.debug("dropStartingPointsAndContexts(): AutoCommit = " + con.isAutoCommit());
             valueFactory = repo.getValueFactory();
 
 
@@ -143,7 +153,7 @@ public class RepositoryOps {
 
             log.info("dropStartingPointsAndContexts(): Drop operations took " + elapsedTime +" seconds.");
 
-            con.setAutoCommit(true);
+	    // deprecated            con.setAutoCommit(true);
             
         } catch (RepositoryException e) {
            log.error("dropStartingPointsAndContexts(): Caught RepositoryException in dropStartingPointsAndContexts. Msg: "
@@ -639,7 +649,7 @@ public class RepositoryOps {
 
 
     /**
-     * Write the repository content to a plain ASCII file in N-triples, Trix or trig format depending the file name sufix.
+     * Write the repository content to a plain ASCII file in N-triples, Trix, jsonld, or trig format depending the file name sufix.
      * @param con - connection to the repository.
      * @param filename - file to hold the repository dump.
      */
@@ -673,6 +683,17 @@ public class RepositoryOps {
                 con.export(myTriXWriter);
                 myTriXWriter.startRDF();
                 myTriXWriter.endRDF();
+
+            }
+            if (filename.endsWith(".json")) {
+
+		org.openrdf.rio.RDFWriter myJSONwriter = Rio.createWriter(RDFFormat.JSONLD, myFileOutputStream);
+
+		// The Expand mode is used by default, hange to COMPACT
+		myJSONwriter.getWriterConfig().set(JSONLDSettings.JSONLD_MODE, JSONLDMode.COMPACT);
+                con.export(myJSONwriter);
+                myJSONwriter.startRDF();
+                myJSONwriter.endRDF();
 
             }
             if (filename.endsWith(".trig")) {
@@ -779,7 +800,7 @@ public class RepositoryOps {
         try {
             RepositoryResult<Resource> contextIds = con.getContextIDs();
 
-            for(Resource contextId : contextIds.asList()){
+	    for(Resource contextId : contextIds.asList()){
                 msg += "    "+contextId+"\n";
             }
 
@@ -1490,7 +1511,8 @@ public class RepositoryOps {
 
         try {
             con = repository.getConnection();
-            con.setAutoCommit(false);
+	    // deprecated            con.setAutoCommit(false);
+            con.begin();
             dropContexts(con,con.getValueFactory(),dropList);
             con.commit();
         } catch (RepositoryException e) {
